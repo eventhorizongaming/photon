@@ -18,6 +18,7 @@ class RootNode extends Node {
     await this.renderer.init({ background: '#1099bb', resizeTo: window, ...options });
     this.canvas = this.renderer.canvas;
     this.container = this.renderer.stage;
+    this.container.label = "RootNode";
   }
 }
 

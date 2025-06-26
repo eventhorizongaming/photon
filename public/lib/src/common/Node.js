@@ -12,6 +12,8 @@ class Node extends EventEmitter {
     
     this.uuid = crypto.randomUUID();
     this.container = new Container();
+
+    this.container.label = "Node";
   }
 
   updateContainer() {
