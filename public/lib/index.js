@@ -6,5 +6,5 @@ export * from './methods.js';
 export * from './src/common/EventEmitter.js';
 export * from './src/common/Node.js';
 
-export * from './src/nodes/GameNode.js';
+export * from './src/nodes/RootNode.js';
 export * from './src/nodes/SpriteNode.js';

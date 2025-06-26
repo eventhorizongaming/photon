@@ -1,7 +1,7 @@
-import { GameNode } from "./src/nodes/GameNode.js";
+import { RootNode } from "./src/nodes/GameNode.js";
 
 export async function newGame() {
-  const game = new GameNode();
+  const game = new RootNode();
   await game.init();
 
   return game;

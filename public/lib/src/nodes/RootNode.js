@@ -1,7 +1,7 @@
 import { Application } from "pixi.js";
 import { Node } from "../common/Node.js";
 
-class GameNode extends Node {
+class RootNode extends Node {
   canvas;
   renderer;
 
@@ -21,4 +21,4 @@ class GameNode extends Node {
   }
 }
 
-export { GameNode };
+export { RootNode };
