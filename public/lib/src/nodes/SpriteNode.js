@@ -1,5 +1,5 @@
 import { Assets, Sprite, Rectangle } from "pixi.js";
-import { GraphicsNode } from "../common/GraphicsNode.js";
+import { GraphicsNode } from "./GraphicsNode.js";
 
 class SpriteNode extends GraphicsNode {
   sprite;

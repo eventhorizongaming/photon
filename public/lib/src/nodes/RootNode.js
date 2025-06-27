@@ -1,5 +1,5 @@
 import { Application } from "pixi.js";
-import { Node } from "../common/Node.js";
+import { Node } from "./Node.js";
 
 class RootNode extends Node {
   canvas;

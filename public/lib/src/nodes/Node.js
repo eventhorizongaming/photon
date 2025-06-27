@@ -1,5 +1,5 @@
 import { Container } from "pixi.js";
-import { EventEmitter } from "./EventEmitter.js";
+import { EventEmitter } from "../common/EventEmitter.js";
 
 class Node extends EventEmitter {
   children = [];
