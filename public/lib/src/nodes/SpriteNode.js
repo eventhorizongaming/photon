@@ -1,7 +1,7 @@
 import { Assets, Sprite, Rectangle } from "pixi.js";
-import { Node } from "../common/Node.js";
+import { GraphicsNode } from "../common/GraphicsNode.js";
 
-class SpriteNode extends Node {
+class SpriteNode extends GraphicsNode {
   sprite;
 
   constructor(spriteSource) {
@@ -23,6 +23,10 @@ class SpriteNode extends Node {
     this.sprite.texture.updateUvs();
     this.sprite.width = w;
     this.sprite.height = h;
+  }
+  
+  setAnchor(...vals) {
+    this.sprite.anchor.set(...vals);
   }
 }
 

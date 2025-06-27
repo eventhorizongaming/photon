@@ -4,6 +4,7 @@ export * as P2 from 'p2-es';
 export * from './methods.js';
 
 export * from './src/common/EventEmitter.js';
+export * from './src/common/GraphicsNode.js';
 export * from './src/common/Node.js';
 
 export * from './src/nodes/RootNode.js';
