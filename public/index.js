@@ -10,7 +10,8 @@ console.log(game);
 game.renderer.ticker.add((time) => {});
 
 
-
+const world = new Photon.WorldNode();
 const player = new Photon.SpriteNode("./demo/assets/blob.png");
 
-game.addChild(player);
+game.addChild(world);
+world.addChild(player);

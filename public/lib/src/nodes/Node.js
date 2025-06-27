@@ -6,6 +6,7 @@ class Node extends EventEmitter {
   parent;
   container;
   uuid;
+  type;
 
   constructor() {
     super();
@@ -13,7 +14,12 @@ class Node extends EventEmitter {
     this.uuid = crypto.randomUUID();
     this.container = new Container();
 
-    this.container.label = "Node";
+    this.setType("Node");
+  }
+
+  setType(type) {
+    this.type = type;
+    this.container.label = type;
   }
 
   updateContainer() {

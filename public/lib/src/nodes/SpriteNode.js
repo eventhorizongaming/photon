@@ -8,7 +8,7 @@ class SpriteNode extends GraphicsNode {
     super();
 
     this.setSource(spriteSource);
-    this.container.label = "SpriteNode";
+    this.setType("SpriteNode");
   }
 
   async setSource(spriteSource) {

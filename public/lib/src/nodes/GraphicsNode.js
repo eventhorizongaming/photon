@@ -4,7 +4,7 @@ class GraphicsNode extends Node {
   constructor() {
     super();
 
-    this.container.label = "GraphicsNode";
+    this.setType("GraphicsNode");
   }
 
   get x() {
