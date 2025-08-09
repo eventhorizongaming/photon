@@ -5,6 +5,7 @@ export * from './methods.js';
 
 export * from './src/common/EventEmitter.js';
 
+export * from './src/nodes/BodyNode.js';
 export * from './src/nodes/GraphicsNode.js';
 export * from './src/nodes/Node.js';
 export * from './src/nodes/RootNode.js';

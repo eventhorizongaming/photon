@@ -4,18 +4,20 @@ import { GraphicsNode } from "./GraphicsNode.js";
 class SpriteNode extends GraphicsNode {
   sprite;
 
-  constructor(spriteSource) {
+  constructor(spriteSource, x, y, w, h) {
     super();
 
-    this.setSource(spriteSource);
     this.setType("SpriteNode");
+    (async () => {
+      await this.setSource(spriteSource);
+      h && this.setClipping(x, y, w, h);
+    })();
   }
 
   async setSource(spriteSource) {
     this.sprite = new Sprite(await Assets.load(spriteSource));
     this.sprite.anchor.set(0.5, 0.5);
     this.container.addChild(this.sprite);
-    this.setClipping(0, 0, 16, 32);
   }
 
   setClipping(x, y, w, h) {
