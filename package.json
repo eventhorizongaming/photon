@@ -6,6 +6,8 @@
     "lint": "npx prettier ./public --write"
   },
   "dependencies": {
+    "p2-es": "^1.2.3",
+    "p5": "^2.0.4",
     "prettier": "3.3.3",
     "vite": "^6.3.5"
   }
