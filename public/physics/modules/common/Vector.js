@@ -3,16 +3,9 @@
  */
 class Vector {
   /**
-   * The x value of the vector.
-   * @type {number}
+   * The source values of the vector.  Either in the format [x, y] or {x: x, y: y}
    */
-  x;
-
-  /**
-   * The y value of the vector.
-   * @type {number}
-   */
-  y;
+  source = [0, 0];
 
   /**
    * Creates a new Vector instance.
@@ -81,6 +74,25 @@ class Vector {
 
   /**
    * Gets the x value of the vector.
+   */
+  get x() {
+    return this.source[0] || this.source.x;
+  }
+
+  /**
+   * Sets the x value of the vector.
+   * @param {number} v - The new x value of the vector.
+   */
+  set x(v) {
+    if ('x' in this.source) {
+      this.source.x = v;
+    } else if (0 in this.source) {
+      this.source[0] = v;
+    }
+  }
+
+  /**
+   * Gets the x value of the vector.
    * @returns {number} The x value of the vector.
    */
   getX() {
@@ -95,6 +107,25 @@ class Vector {
   setX(v) {
     this.x = v;
     return this;
+  }
+
+  /**
+   * Gets the y value of the vector.
+   */
+  get y() {
+    return this.source[1] || this.source.y;
+  }
+
+  /**
+   * Sets the y value of the vector.
+   * @param {number} v - The new y value of the vector.
+   */
+  set y(v) {
+    if ('y' in this.source) {
+      this.source.y = v;
+    } else if (1 in this.source) {
+      this.source[1] = v;
+    }
   }
 
   /**
@@ -177,6 +208,18 @@ class Vector {
    */
   toArray() {
     return [this.x, this.y];
+  }
+
+  /**
+   * Creates a new vector as an interface for another given vector.  Can be either array based or object based.
+   * @param {object} source - The source vector.
+   * @returns A new Vector instance.
+   */
+  static from(source) {
+    let vec = new Vector();
+    vec.source = source;
+
+    return vec;
   }
 
   /**
