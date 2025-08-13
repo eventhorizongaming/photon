@@ -1,22 +1,149 @@
 import { ContactMaterial, Material, World } from 'p2-es';
-import { defaultConfig } from './defaultConfig.js';
 import { Modules } from '../PhysicsModules.js';
 import { PhysicsCollisionGroups } from './PhysicsCollisionGroups.js';
+import { Vector } from '../common/Vector.js';
+
+const sleepModes = {
+  'body': World.BODY_SLEEPING,
+  'island': World.ISLAND_SLEEPING,
+  'none': World.NO_SLEEPING,
+  1: 'none',
+  2: 'body',
+  4: 'island'
+};
 
 class PhysicsWorld {
   world;
   collisionGroups;
+  gravity;
 
-  constructor({ physicsModules, simulation, gravity, defaultMaterials } = defaultConfig) {
+  constructor({ physicsModules, simulation, gravity, defaultMaterials } = {}) {
+
+    // Initialize some class variables
     this.world = new World();
-
-    this.setPhysicsModules(physicsModules);
+    this.gravity = Vector.from(this.world.gravity);
+    this.collisionGroups = new PhysicsCollisionGroups();
     this.setDefaultMaterials(defaultMaterials);
 
-    this.collisionGroups = new PhysicsCollisionGroups();
+    // Set the physics modules
+    this.setPhysicsModules({
+      broadphase: physicsModules?.broadphase ?? 'SAP',
+      narrowphase: physicsModules?.narrowphase ?? 'Internal',
+      solver: physicsModules?.solver ?? 'GaussSeidel',
+    });
 
-    console.log({...simulation, ...gravity});
-    console.log(this);
+    // Apply the given simulation settings
+    this.dampingEnabled = simulation?.dampingEnabled ?? true;
+    this.gravityEnabled = simulation?.gravityEnabled ?? true;
+    this.springForcesEnabled = simulation?.springForcesEnabled ?? true;
+    this.islandSplittingEnabled = simulation?.islandSplittingEnabled ?? true;
+    this.constraintSolvingEnabled = simulation?.constraintSolvingEnabled ?? true;
+    this.sleepMode = simulation?.sleepMode ?? 'body';
+
+    // Apply the gravity settings
+    this.gravity.x = gravity?.gravity[0] ?? 0;
+    this.gravity.y = gravity?.gravity[1] ?? 0;
+    this.frictionGravity = gravity?.frictionGravity ?? 0;
+    this.world.useFrictionGravityOnZeroGravity = gravity?.useFrictionGravityOnZeroGravity ?? true;
+    this.world.useWorldGravityAsFrictionGravity = gravity?.useWorldGravityAsFrictionGravity ?? true;
+  }
+
+  /**
+   * Gets whether or not damping is enabled
+   */
+  get dampingEnabled() {
+    return this.world.applyDamping;
+  }
+
+  /**
+   * Sets whether or not damping is enabled
+   */
+  set dampingEnabled(v) {
+    this.world.applyDamping = v;
+  }
+
+  /**
+   * Gets whether or not gravity is enabled
+   */
+  get gravityEnabled() {
+    return this.world.applyGravity;
+  }
+
+  /**
+   * Sets whether or not gravity is enabled
+   */
+  set gravityEnabled(v) {
+    this.world.applyGravity = v;
+  }
+
+  /**
+   * Gets whether or not spring forces are enabled
+   */
+  get springForcesEnabled() {
+    return this.world.applySpringForces;
+  }
+
+  /**
+   * Sets whether or not spring forces are enabled
+   */
+  set springForcesEnabled(v) {
+    this.world.applySpringForces = v;
+  }
+
+  /**
+   * Gets whether or not island splitting is enabled
+   */
+  get islandSplittingEnabled() {
+    return this.world.islandSplit;
+  }
+
+  /**
+   * Sets whether or not island splitting is enabled
+   */
+  set islandSplittingEnabled(v) {
+    this.world.islandSplit = v;
+  }
+
+  /**
+   * Gets whether or not constraint solving is enabled
+   */
+  get constraintSolvingEnabled() {
+    return this.world.solveConstraints;
+  }
+
+  /**
+   * Sets whether or not constraint solving is enabled
+   */
+  set constraintSolvingEnabled(v) {
+    this.world.solveConstraints = v;
+  }
+
+  /**
+   * Gets the sleep mode ('none', 'body', or 'island')
+   */
+  get sleepMode() {
+    return sleepModes[this.world.sleepMode];
+  }
+
+  /**
+   * Sets the sleep mode ('none', 'body', or 'island')
+   */
+  set sleepMode(v) {
+    this.world.sleepMode = sleepModes[v];
+  }
+
+  /**
+   * Gets the world's friction gravity
+   */
+  get frictionGravity() {
+    return this.world.frictionGravity;
+  }
+
+  /**
+   * Sets the world's friction gravity
+   */
+  set frictionGravity(v) {
+    this.world.frictionGravity = v;
   }
 
   /**
@@ -26,8 +153,8 @@ class PhysicsWorld {
    * @param {ContactMaterial} [materials.defaultContactMaterial]
    */
   setDefaultMaterials({ defaultMaterial, defaultContactMaterial } = {}) {
-    defaultMaterial && (this.world.defaultMaterial = defaultMaterial);
-    defaultContactMaterial && (this.world.defaultMatdefaultContactMaterialerial = defaultContactMaterial);
+    defaultMaterial ?? (this.world.defaultMaterial = defaultMaterial);
+    defaultContactMaterial ?? (this.world.defaultMatdefaultContactMaterialerial = defaultContactMaterial);
   }
 
   /**
@@ -38,9 +165,9 @@ class PhysicsWorld {
    * @param {string} [modules.solver]
    */
   setPhysicsModules({ broadphase, narrowphase, solver } = {}) {
-    broadphase && (this.world.broadphase = new Modules.Broadphases[broadphase]);
-    narrowphase && (this.world.narrowphase = new Modules.Narrowphases[narrowphase]);
-    solver && (this.world.solver = new Modules.Solvers[solver]);
+    broadphase ?? (this.world.broadphase = new Modules.Broadphases[broadphase]);
+    narrowphase ?? (this.world.narrowphase = new Modules.Narrowphases[narrowphase]);
+    solver ?? (this.world.solver = new Modules.Solvers[solver]);
   }
 }
 
