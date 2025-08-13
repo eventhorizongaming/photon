@@ -5,12 +5,12 @@ export const defaultConfig = {
     solver: 'GaussSeidel', // Options: 'GaussSeidel'
   },
   simulation: {
-    applyDamping: true, // Boolean
-    applyGravity: true, // Boolean
-    applySpringForces: true, // Boolean
-    islandSplit: true, // Boolean
+    dampingEnabled: true, // Boolean
+    gravityEnabled: true, // Boolean
+    springForcesEnabled: true, // Boolean
+    islandSplittingEnabled: true, // Boolean
     sleepMode: 'body', // Options: 'none', 'body', 'island'
-    solveConstraints: true, // Boolean
+    constraintSolvingEnabled: true, // Boolean
   },
   gravity: {
     frictionGravity: 0, // Number
@@ -18,8 +18,8 @@ export const defaultConfig = {
     useFrictionGravityOnZeroGravity: true, // Boolean
     useWorldGravityAsFrictionGravity: true // Boolean
   },
-  // defaultMaterials: {
-  //   defaultContactMaterial: (...),
-  //   defaultMaterial: (...),
-  // },
+  defaultMaterials: {
+    defaultContactMaterial: undefined, // ContactMaterial
+    defaultMaterial: undefined, // Material
+  },
 };
