@@ -3,6 +3,8 @@ import { PhysicsWorld } from './modules/world/PhysicsWorld.js';
 
 const world = new PhysicsWorld();
 
+console.log(world);
+
 const sketch = (p) => {
   p.setup = () => {
     p.createCanvas(400, 400);
