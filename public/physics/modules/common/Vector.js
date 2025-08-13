@@ -76,7 +76,7 @@ class Vector {
    * Gets the x value of the vector.
    */
   get x() {
-    return this.source[0] || this.source.x;
+    return this.source[0] ?? this.source.x;
   }
 
   /**
@@ -113,7 +113,7 @@ class Vector {
    * Gets the y value of the vector.
    */
   get y() {
-    return this.source[1] || this.source.y;
+    return this.source[1] ?? this.source.y;
   }
 
   /**
