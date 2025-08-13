@@ -15,13 +15,13 @@ const sleepModes = {
 class PhysicsWorld {
   world;
   collisionGroups;
-  gravity;
+  gravity = new Vector();
 
   constructor({ physicsModules, simulation, gravity, defaultMaterials } = {}) {
 
     // Initialize some class variables
     this.world = new World();
-    this.gravity = Vector.from(this.world.gravity);
+    this.gravity.source = this.world.gravity;
     this.collisionGroups = new PhysicsCollisionGroups();
     this.setDefaultMaterials(defaultMaterials);
 
@@ -42,7 +42,7 @@ class PhysicsWorld {
 
     // Apply the gravity settings
     this.gravity.x = gravity?.gravity[0] ?? 0;
-    this.gravity.y = gravity?.gravity[1] ?? 0;
+    this.gravity.y = gravity?.gravity[1] ?? 9.8;
     this.frictionGravity = gravity?.frictionGravity ?? 0;
     this.world.useFrictionGravityOnZeroGravity = gravity?.useFrictionGravityOnZeroGravity ?? true;
     this.world.useWorldGravityAsFrictionGravity = gravity?.useWorldGravityAsFrictionGravity ?? true;
@@ -144,6 +144,14 @@ class PhysicsWorld {
    */
   set frictionGravity(v) {
     this.world.frictionGravity = v;
+  }
+
+  /**
+   * Sets the gravity to equal the value of another vector (non-destructively)
+   * @param {number[] | {x: number, y: number}} v
+   */
+  set gravity(v) {
+    this.gravity.set(v[0] ?? v.x ?? 0, v[1] ?? v.y ?? 0);
   }
 
   /**
