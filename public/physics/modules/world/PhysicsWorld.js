@@ -12,11 +12,23 @@ const sleepModes = {
   4: 'island'
 };
 
+/**
+ * Represents a physics simulation world, managing global settings, modules, and materials.
+ * @class PhysicsWorld
+ */
 class PhysicsWorld {
   world;
   collisionGroups;
   gravity = new Vector();
 
+  /**
+   * Creates an instance of the PhysicsWorld class.
+   * @param {Object} config - The parameters for the physics world.
+   * @param {Object} config.physicsModules - The physics modules to use.
+   * @param {Object} config.simulation - The simulation settings.
+   * @param {Object} config.gravity - The gravity settings.
+   * @param {Object} config.defaultMaterials - The default materials for the world.
+   */
   constructor({ physicsModules, simulation, gravity, defaultMaterials } = {}) {
 
     // Initialize some class variables
