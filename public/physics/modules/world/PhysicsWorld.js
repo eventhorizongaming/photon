@@ -2,6 +2,7 @@ import { ContactMaterial, Material, World } from 'p2-es';
 import { Modules } from '../PhysicsModules.js';
 import { PhysicsCollisionGroups } from './PhysicsCollisionGroups.js';
 import { Vector } from '../common/Vector.js';
+import { PhysicsBody } from '../body/PhysicsBody.js';
 
 const sleepModes = {
   'body': World.BODY_SLEEPING,
@@ -188,6 +189,15 @@ class PhysicsWorld {
     broadphase ?? (this.world.broadphase = new Modules.Broadphases[broadphase]);
     narrowphase ?? (this.world.narrowphase = new Modules.Narrowphases[narrowphase]);
     solver ?? (this.world.solver = new Modules.Solvers[solver]);
+  }
+
+  /**
+   * Creates a new physics body.
+   * @param  {...any} bodyParams - The parameters to pass to the PhysicsBody constructor.
+   * @returns {PhysicsBody} The created physics body.
+   */
+  createBody(...bodyParams) {
+    return new PhysicsBody(this, ...bodyParams);
   }
 }
 

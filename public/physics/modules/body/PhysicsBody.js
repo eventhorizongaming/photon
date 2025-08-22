@@ -1,13 +1,17 @@
 import { Body } from "p2-es";
-import { Hitbox } from "./PhysicsHitbox.js";
+import { PhysicsHitbox } from "./PhysicsHitbox.js";
 
 class PhysicsBody {
   body;
   hitbox;
+  world;
 
-  constructor() {
+  constructor(world, ...bodyParams) {
+    this.world = world;
     this.body = new Body();
-    this.hitbox = new Hitbox();
+    this.hitbox = new PhysicsHitbox(this);
+
+    this.world.world.addBody(this.body);
   }
 }
 
